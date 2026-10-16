@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TVET Projects — Diploma in Creative Digital Video Production</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+      background: #f1f5f9; color: #1e293b;
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 40px 20px;
+    }
+    .hero { text-align: center; margin-bottom: 48px; }
+    .hero-icon { font-size: 56px; margin-bottom: 16px; }
+    .hero h1 { font-size: 28px; font-weight: 800; color: #1e293b; margin-bottom: 8px; }
+    .hero p  { font-size: 15px; color: #64748b; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px; width: 100%; max-width: 720px;
+    }
+    .card {
+      background: #fff; border-radius: 16px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+      padding: 32px 28px; text-decoration: none; color: inherit;
+      border-top: 5px solid #e2e8f0;
+      transition: transform 0.18s, box-shadow 0.18s;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.13); }
+    .card-blue   { border-top-color: #2563eb; }
+    .card-green  { border-top-color: #16a34a; }
+    .card-icon { font-size: 36px; }
+    .card-title { font-size: 18px; font-weight: 700; color: #1e293b; }
+    .card-desc  { font-size: 13.5px; color: #64748b; line-height: 1.6; }
+    .card-tags  { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+    .tag {
+      font-size: 11px; font-weight: 600; padding: 3px 9px;
+      border-radius: 20px; background: #f1f5f9; color: #64748b;
+    }
+    .card-btn {
+      margin-top: 8px; display: inline-block;
+      background: #2563eb; color: #fff;
+      font-size: 13px; font-weight: 700;
+      padding: 10px 20px; border-radius: 8px; text-align: center;
+      transition: opacity 0.15s;
+    }
+    .card-green .card-btn { background: #16a34a; }
+    .card-btn:hover { opacity: 0.85; }
+
+    footer {
+      margin-top: 56px; font-size: 12px; color: #94a3b8; text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="hero-icon">🎬</div>
+    <h1>TVET Digital Video Production</h1>
+    <p>Diploma in Creative Digital Video Production &nbsp;·&nbsp; TVET Institution &nbsp;·&nbsp; 2025</p>
+  </div>
+
+  <div class="cards">
+
+    <a class="card card-blue" href="tvet-dashboard/index.html">
+      <div class="card-icon">📊</div>
+      <div class="card-title">Student Task Dashboard</div>
+      <div class="card-desc">
+        Full-featured lecturer dashboard to manage student assignment submissions,
+        track deadlines, monitor progress, and export reports.
+      </div>
+      <div class="card-tags">
+        <span class="tag">28 Students</span>
+        <span class="tag">Dark Mode</span>
+        <span class="tag">Export CSV</span>
+        <span class="tag">Bulk Update</span>
+        <span class="tag">Import CSV</span>
+      </div>
+      <div class="card-btn">Open Dashboard →</div>
+    </a>
+
+    <a class="card card-green" href="film-quiz/index.html">
+      <div class="card-icon">🎬</div>
+      <div class="card-title">Film Pre-Production Quiz</div>
+      <div class="card-desc">
+        Interactive 5-question multiple choice quiz on Film Pre-Production
+        concepts for Diploma students. Auto-scored with feedback.
+      </div>
+      <div class="card-tags">
+        <span class="tag">5 Questions</span>
+        <span class="tag">Auto Score</span>
+        <span class="tag">Feedback</span>
+        <span class="tag">Restart</span>
+      </div>
+      <div class="card-btn">Start Quiz →</div>
+    </a>
+
+  </div>
+
+  <footer>
+    © 2025 TVET Institution &nbsp;·&nbsp; Made with IBM Bob
+  </footer>
+
+</body>
+</html>
