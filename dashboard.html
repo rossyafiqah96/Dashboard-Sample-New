@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TVET Student Task Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <span class="nav-icon">🎬</span>
+      <div>
+        <div class="nav-title">TVET Student Task Dashboard</div>
+        <div class="nav-sub">Diploma in Creative Digital Video Production</div>
+      </div>
+    </div>
+    <div class="nav-right">
+      <div class="nav-date" id="nav-date"></div>
+      <button class="dark-toggle" id="dark-toggle">🌙 Dark</button>
+    </div>
+  </nav>
+
+  <div class="page">
+
+    <!-- ── Daily Summary Banner ── -->
+    <div class="summary-banner" id="summary-banner"></div>
+
+    <!-- ── Class Tabs ── -->
+    <div class="class-tabs" id="class-tabs">
+      <button class="class-tab active" data-class="ALL">All Classes</button>
+      <button class="class-tab" data-class="DVP1A">DVP1A</button>
+      <button class="class-tab" data-class="DVP1B">DVP1B</button>
+    </div>
+
+    <!-- ── Summary Cards ── -->
+    <section class="cards-row">
+      <div class="card card-blue">
+        <div class="card-icon-wrap blue-bg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="card-info">
+          <div class="card-label">Total Students</div>
+          <div class="card-value" id="card-total">0</div>
+          <div class="card-desc">Total registered students</div>
+        </div>
+      </div>
+      <div class="card card-green">
+        <div class="card-icon-wrap green-bg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="card-info">
+          <div class="card-label">Completed Tasks</div>
+          <div class="card-value" id="card-completed">0</div>
+          <div class="card-mini-bar-wrap"><div class="card-mini-bar" id="card-completed-bar"></div></div>
+          <div class="card-pct" id="card-completed-pct"></div>
+          <div class="card-desc">Students who completed</div>
+        </div>
+      </div>
+      <div class="card card-orange" id="card-pending-wrap">
+        <div class="card-icon-wrap orange-bg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="card-info">
+          <div class="card-label">Pending Tasks <span class="notif-badge hidden" id="notif-badge">!</span></div>
+          <div class="card-value" id="card-pending">0</div>
+          <div class="card-mini-bar-wrap"><div class="card-mini-bar" id="card-pending-bar"></div></div>
+          <div class="card-pct" id="card-pending-pct"></div>
+          <div class="card-desc">Students with incomplete work</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Sticky Note ── -->
+    <div class="sticky-note-wrap">
+      <div class="sticky-note-header">
+        <span>📌 Personal Notes</span>
+        <button class="btn-icon" id="btn-clear-note" title="Clear note">✕</button>
+      </div>
+      <textarea id="sticky-note" class="sticky-note-body" placeholder="Type your reminders here… (auto-saved)"></textarea>
+    </div>
+
+    <!-- ── Assignment Stats ── -->
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <h2 class="panel-title">📊 Assignment Statistics</h2>
+          <p class="panel-sub">Completion rate per assignment</p>
+        </div>
+      </div>
+      <div id="assign-stats-grid" class="assign-stats-grid"></div>
+    </section>
+
+    <!-- ── Checklist ── -->
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <h2 class="panel-title">✅ Lecturer Daily Checklist</h2>
+          <p class="panel-sub" id="checklist-progress">0 of 4 Tasks Completed</p>
+        </div>
+        <div class="panel-header-actions">
+          <button class="btn btn-ghost" id="btn-reset-checklist">↺ Reset</button>
+        </div>
+      </div>
+      <div class="checklist-progress-bar"><div class="checklist-bar-fill" id="checklist-bar-fill"></div></div>
+      <ul class="checklist" id="checklist">
+        <li data-key="cl-1"><label class="cl-item"><input type="checkbox"/><span class="cl-box"></span><span class="cl-text">Review Student Assignments</span></label></li>
+        <li data-key="cl-2"><label class="cl-item"><input type="checkbox"/><span class="cl-box"></span><span class="cl-text">Update Student Marks</span></label></li>
+        <li data-key="cl-3"><label class="cl-item"><input type="checkbox"/><span class="cl-box"></span><span class="cl-text">Check Student Attendance</span></label></li>
+        <li data-key="cl-4"><label class="cl-item"><input type="checkbox"/><span class="cl-box"></span><span class="cl-text">Prepare Teaching Materials</span></label></li>
+      </ul>
+    </section>
+
+    <!-- ── Student Table ── -->
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <h2 class="panel-title">📂 Student Task Management</h2>
+          <p class="panel-sub" id="table-record-count">Showing 0 students</p>
+        </div>
+        <div class="panel-header-actions">
+          <button class="btn btn-primary" id="btn-add-student">+ Add Student</button>
+          <label class="btn btn-ghost" id="btn-import-label" title="Import CSV">⬆ Import CSV<input type="file" id="import-csv-input" accept=".csv" style="display:none"/></label>
+          <button class="btn btn-ghost" id="btn-print">🖨️ Print</button>
+          <button class="btn btn-ghost" id="btn-export-csv">⬇ Export CSV</button>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="filter-row">
+        <input type="text" id="search-input" class="search-input" placeholder="🔍  Search name, ID or remarks…"/>
+        <select id="filter-status" class="filter-select">
+          <option value="">All Statuses</option>
+          <option value="Completed">Completed</option>
+          <option value="Pending">Pending</option>
+          <option value="Overdue">Overdue</option>
+        </select>
+        <select id="filter-assignment" class="filter-select"><option value="">All Assignments</option></select>
+        <button class="btn btn-ghost" id="btn-clear-filters" style="padding:8px 12px;">✕ Clear</button>
+      </div>
+
+      <!-- Column visibility -->
+      <div class="col-toggle-row" id="col-toggle-row"></div>
+
+      <!-- Bulk actions -->
+      <div class="bulk-bar hidden" id="bulk-bar">
+        <span id="bulk-count">0 selected</span>
+        <select id="bulk-status-select" class="filter-select" style="min-width:140px;">
+          <option value="">Change status to…</option>
+          <option value="Completed">Completed</option>
+          <option value="Pending">Pending</option>
+          <option value="Overdue">Overdue</option>
+        </select>
+        <button class="btn btn-primary" id="btn-bulk-apply">Apply</button>
+        <button class="btn btn-ghost"   id="btn-bulk-cancel">Cancel</button>
+      </div>
+
+      <div class="table-wrap">
+        <table class="student-table" id="student-table">
+          <thead>
+            <tr>
+              <th style="width:36px;"><input type="checkbox" id="chk-all" title="Select all"/></th>
+              <th class="row-num">#</th>
+              <th class="sortable" data-col="id">Student ID <span class="sort-icon">↕</span></th>
+              <th class="sortable" data-col="name">Student Name <span class="sort-icon">↕</span></th>
+              <th data-colname="class">Class</th>
+              <th class="sortable" data-col="assignment">Assignment <span class="sort-icon">↕</span></th>
+              <th class="sortable" data-col="dueDate" data-colname="dueDate">Due Date <span class="sort-icon">↕</span></th>
+              <th>Status</th>
+              <th data-colname="remarks">Remarks</th>
+              <th data-colname="updatedAt">Last Updated</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+
+      <div class="pagination-row">
+        <span class="pg-info" id="pg-info"></span>
+        <div class="pg-controls" id="pg-controls"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <div id="toast" class="toast toast-hidden"></div>
+
+  <footer class="footer">
+    <p>© 2025 TVET — Diploma in Creative Digital Video Production &nbsp;·&nbsp; Made with IBM Bob</p>
+  </footer>
+
+  <!-- ══ Add/Edit Student Modal ══ -->
+  <div id="modal-student" class="modal-overlay hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modal-student-title">Add Student</h3>
+        <button class="modal-close" id="modal-close-student">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Student ID *</label>
+            <input type="text" id="f-stu-id" class="form-input" placeholder="e.g. DV2529"/>
+          </div>
+          <div class="form-group">
+            <label>Student Name *</label>
+            <input type="text" id="f-stu-name" class="form-input" placeholder="Full name"/>
+          </div>
+          <div class="form-group">
+            <label>Class</label>
+            <select id="f-stu-class" class="form-input">
+              <option value="DVP1A">DVP1A</option>
+              <option value="DVP1B">DVP1B</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Assignment *</label>
+            <input type="text" id="f-stu-assignment" class="form-input" placeholder="e.g. Script Writing"/>
+          </div>
+          <div class="form-group">
+            <label>Due Date</label>
+            <input type="date" id="f-stu-duedate" class="form-input"/>
+          </div>
+          <div class="form-group">
+            <label>Submission Status</label>
+            <select id="f-stu-status" class="form-input">
+              <option value="Pending">Pending</option>
+              <option value="Completed">Completed</option>
+              <option value="Overdue">Overdue</option>
+            </select>
+          </div>
+          <div class="form-group full-span">
+            <label>Remarks / Comments</label>
+            <textarea id="f-stu-remarks" class="form-input" rows="3" placeholder="e.g. Submitted late due to medical leave…"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="modal-cancel-student">Cancel</button>
+        <button class="btn btn-primary" id="btn-save-student">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Confirm Modal ══ -->
+  <div id="modal-confirm" class="modal-overlay hidden">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h3 id="confirm-title">Confirm</h3>
+        <button class="modal-close" id="modal-close-confirm">✕</button>
+      </div>
+      <div class="modal-body">
+        <p id="confirm-msg" style="font-size:14px;color:var(--text);line-height:1.7;"></p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="modal-cancel-confirm">Cancel</button>
+        <button class="btn btn-danger" id="btn-confirm-ok">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
